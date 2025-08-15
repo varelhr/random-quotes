@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Random Quote</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background: linear-gradient(135deg, #f8ffae 0%, #43c6ac 100%);
+      min-height: 100vh;
+    }
+    .main-title {
+      font-size: 2.5em;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+      text-shadow: 1px 2px 8px #fff8;
+    }
+    .subtitle {
+      font-size: 1.2em;
+      color: #555;
+      margin-bottom: 30px;
+      font-style: italic;
+    }
+    #quote-box {
+      background: rgba(128, 225, 186, 0.95);
+      padding: 30px 20px 30px 20px;
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      max-width: 500px;
+      margin: auto;
+      transition: box-shadow 0.3s;
+    }
+    #quote-box:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.22);
+    }
+    #quote {
+      color: #333;
+      font-size: 1.3em;
+      margin-bottom: 25px;
+      min-height: 48px;
+      transition: color 0.3s;
+    }
+    img[onclick] {
+      width: 70px;
+      cursor: pointer;
+      margin-top: 10px;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.13);
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 3px solid #fff;
+      background: #fff;
+    }
+    img[onclick]:hover {
+      transform: scale(1.08) rotate(-5deg);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.22);
+      border-color: #43c6ac;
+    }
+    .mood-select {
+      margin-bottom: 20px;
+    }
+    .mood-select label {
+      font-weight: bold;
+      margin-right: 8px;
+    }
+    .mood-select select {
+      padding: 6px 12px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-title">Random Quote Generator</div>
+  <div class="subtitle">Klik tombol enter untuk melihat quotes lainnya</div>
+  <div class="mood-select">
+    <label for="mood">Pilih mood kamu:</label>
+    <select id="mood" onchange="newQuote()">
+      <option value="all">Semua Mood</option>
+      <option value="motivasi">Motivasi</option>
+      <option value="bahagia">Bahagia</option>
+      <option value="sedih">Sedih</option>
+      <option value="inspirasi">Inspirasi</option>
+    </select>
+  </div>
+  <div id="quote-box">
+    <h2 id="quote">Klik tombol untuk melihat quote!</h2>
+    <img 
+      src="unknown.jpg" 
+      alt="Quote Baru" 
+      onclick="newQuote()" 
+    >
+  </div>
+
+  <script>
+    const quotesByMood = {
+      motivasi: [
+        "Jangan takut gagal, takutlah untuk tidak mencoba.",
+        "Sukses adalah hasil dari persiapan, kerja keras, dan belajar dari kegagalan.",
+        "Jangan menunggu waktu yang tepat, karena waktu tidak akan pernah benar-benar tepat.",
+        "Keberanian adalah kemampuan untuk melangkah maju meski merasa takut.",
+        "Setiap tantangan adalah kesempatan untuk tumbuh dan menjadi lebih baik.",
+        "Believe you can and you’re halfway there. – Theodore Roosevelt",
+        "Dream big and dare to fail.",
+        "Start where you are. Use what you have. Do what you can. – Arthur Ashe"
+      ],
+      bahagia: [
+        "Kebahagiaan bukanlah sesuatu yang sudah jadi. Itu berasal dari tindakanmu sendiri.",
+        "Setiap hari adalah awal yang baru.",
+        "Jangan bandingkan dirimu dengan orang lain. Bandingkan dirimu dengan dirimu yang kemarin.",
+        "Happiness is not something ready made. It comes from your own actions. – Dalai Lama",
+        "Success is not the key to happiness. Happiness is the key to success."
+      ],
+      sedih: [
+        "Kesempatan tidak datang dua kali.",
+        "Orang bijak belajar ketika mereka bisa. Orang bodoh belajar ketika mereka terpaksa.",
+        "Hidup itu seperti bersepeda. Untuk menjaga keseimbangan, kamu harus terus bergerak.",
+        "You are never too old to set another goal or to dream a new dream. – C.S. Lewis"
+      ],
+      inspirasi: [
+        "Belajar dari kemarin, hidup untuk hari ini, berharap untuk besok.",
+        "The best way to predict the future is to create it.",
+        "The only way to do great work is to love what you do. – Steve Jobs",
+        "Don’t watch the clock; do what it does. Keep going.",
+        "Success is not final, failure is not fatal: It is the courage to continue that counts. – Winston Churchill"
+      ]
+    };
+
+    // Gabungkan semua quotes untuk opsi "Semua Mood"
+    const allQuotes = [
+      ...quotesByMood.motivasi,
+      ...quotesByMood.bahagia,
+      ...quotesByMood.sedih,
+      ...quotesByMood.inspirasi
+    ];
+
+    function newQuote() {
+      const mood = document.getElementById("mood").value;
+      let quotes;
+      if (mood === "all") {
+        quotes = allQuotes;
+      } else {
+        quotes = quotesByMood[mood];
+      }
+      const randomIndex = Math.floor(Math.random() * quotes.length);
+      document.getElementById("quote").textContent = quotes[randomIndex];
+    }
+  </script>
+</body>
+</html>
+
